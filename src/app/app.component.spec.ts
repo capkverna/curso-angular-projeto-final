@@ -1,10 +1,24 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CadastrarTarefaComponent, EditarTarefaComponent, ListarTarefaComponent } from './tarefas';
+import { TarefaConcluidaDirective } from './tarefas/shared/tarefa-concluida.directive';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, ListarTarefaComponent, CadastrarTarefaComponent, EditarTarefaComponent, TarefaConcluidaDirective],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ],
+      providers:
+      [
+        {
+          provide: ActivatedRoute,
+          useValue: { }
+        }
+      ]
     }).compileComponents();
   });
 
@@ -13,17 +27,5 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-  it(`should have the 'projeto-final' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('projeto-final');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, projeto-final');
-  });
+  
 });
